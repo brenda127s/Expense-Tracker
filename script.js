@@ -17,13 +17,25 @@ function addExpense() {
     dateCell.textContent = date;
     amountCell.textContent = amount;
 
+    //Add to the total
+    let expenses = [];
+    let total = 0;
+    const totalCell = document.getElementById('total');
+   
+    total += amount;
+    totalCell.textContent = total;
+    
+
     //Create delete button
     var deleteButton = document.createElement('button');
     deleteButton.textContent = 'X';
     deleteButton.addEventListener('click', function() {
         // Remove the row when delete button is clicked
         newRow.remove();
-        updateTotal();
+        let expenses = [];
+        total -= expenses.amount
+        totalCell.textContent = total;
+        
     });
     deleteButtonCell.appendChild(deleteButton);
 
@@ -36,25 +48,14 @@ function addExpense() {
     var tableBody = document.querySelector('table tbody');
     tableBody.appendChild(newRow);
 
+    
+
     //Clear input fields
     document.getElementById('name').value = "";
     document.getElementById('date').value = "";
     document.getElementById('amount').value = "";
 
-    updateTotal();
+    
     }
 
-    function updateTotal() {
-        var total = 0;
-        var table = document.getElementById('expensesTable');
-        var rows = table.getElementsByTagName('tr');
-
-        // Start index from 1 to skip header row
-        for (var i = 1; i < rows.length; i++) {
-            var row = rows[i];
-            var amountCell = row.getElementsByTagName('td')[2];
-            var amount = parseFloat(amountCell.textContent);
-            total += amount;
-        }
-        document.getElementById('total').textContent = total.toFixed(2);
-    }
+    
